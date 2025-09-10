@@ -1,38 +1,196 @@
-.App {
-  text-align: center;
+:root {
+  --bg: #fff9fe;
+  --bg-soft: #fff3fb;
+  --primary: #ff91c8;
+  --primary-600: #ff6fb6;
+  --accent: #8fd3ff;
+  --text: #3b3b3b;
+  --muted: #7a7a7a;
+  --card: #ffffff;
+  --shadow: 0 8px 20px rgba(255, 145, 200, 0.18);
 }
 
-.App-logo {
-  height: 40vmin;
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+}
+
+.site {
+  min-height: 100vh;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 16px;
+  background: radial-gradient(1200px 600px at -200px -200px, #ffe0f1, transparent 60%), var(--bg-soft);
+  border-bottom: 1px dashed #ffd0e8;
+}
+
+.brand {
+  font-weight: 800;
+  color: var(--primary-600);
+  font-size: 22px;
+  letter-spacing: 0.5px;
+}
+
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.tabs button {
+  appearance: none;
+  border: 2px solid transparent;
+  background: transparent;
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.tabs button:hover { background: #ffe9f4; }
+.tabs button.active { background: var(--card); box-shadow: var(--shadow); border-color: #ffd2ea; }
+
+.content {
+  padding: 20px 20px 40px;
+}
+
+.page-grid { display: grid; grid-template-columns: 200px 1fr; gap: 16px; align-items: start; position: relative; }
+.inner-sidebar { position: sticky; top: 76px; display: flex; flex-direction: column; gap: 8px; }
+.inner-sidebar a { text-decoration: none; color: var(--text); padding: 8px 10px; border-radius: 10px; }
+.inner-sidebar a:hover { background: #ffe9f4; }
+.inner-sidebar a.active { background: #ffe9f4; border: 1px solid #ffd3ea; font-weight: 700; }
+.page-body { min-width: 0; }
+/* vertical divider between sidebar and sections */
+.page-grid::before {
+  content: '';
+  position: absolute;
+  left: 200px; /* aligns with sidebar width */
+  top: -8px;
+  bottom: -8px;
+  width: 0;
+  border-left: 1px dashed #ffd6eb;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.card {
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 20px;
+  margin: 16px auto;
+  max-width: 1000px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.hero {
+  background: linear-gradient(135deg, #fff 0%, #ffeaf5 50%, #eaf6ff 100%);
+}
+.hero h1 { margin: 0 0 8px; }
+.hero .tags { list-style: none; display: flex; gap: 8px; padding: 0; margin: 12px 0 0; }
+.hero .tags li {
+  background: #fff;
+  border: 1px solid #ffd6eb;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
 }
 
-.App-link {
-  color: #61dafb;
+h1, h2, h3 { color: #2c2c2c; }
+
+.day-section {
+  border: 2px dashed #ffe0f1;
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: #fff;
+  margin: 16px auto;
+  /* Ensure anchor scroll accounts for sticky header/topbar */
+  scroll-margin-top: 88px;
+}
+/* alternating background like bottom gradient feel */
+.day-section.alt {
+  background: linear-gradient(135deg, #fff 0%, #fff5fb 50%, #f5faff 100%);
+  border-color: #ffd9ee;
+}
+.day-header { display: flex; align-items: center; gap: 10px; }
+.chip { background: #ffecf6; color: #c84d8d; border: 1px solid #ffd3ea; border-radius: 10px; padding: 4px 8px; font-weight: 700; }
+.meta { margin: 8px 0; color: var(--muted); padding-left: 18px; }
+.notes { background: #fff7fb; border-left: 4px solid #ffc4e4; padding: 8px 10px; border-radius: 8px; }
+
+/* section content blocks */
+.section-block { margin-top: 8px; }
+/* (legacy timeline styles kept if needed elsewhere) */
+
+/* itinerary day divider */
+.day-divider {
+  border: none;
+  border-top: 1px dashed #ffd6eb;
+  margin: 12px auto 24px;
+  max-width: 960px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.checklist li { background: #fff; border: 1px solid #ffe3f3; border-radius: 12px; padding: 10px 12px; }
+.checklist input { accent-color: var(--primary-600); width: 16px; height: 16px; }
+
+.transport { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.transport-item { background: #fff; border: 1px solid #e7f4ff; border-radius: 14px; padding: 12px; }
+
+/* 新增：航班資訊獨立區塊與時間軸樣式 */
+.transport-section { border: 2px solid #e7f4ff; }
+.section-header { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+.section-sub { color: var(--muted); font-size: 13px; margin: 0; }
+.flight-groups { display: grid; gap: 12px; }
+.group-title { margin: 0 0 6px; font-size: 16px; color: #2c2c2c; }
+.flight-timeline { list-style: none; padding: 0 0 0 8px; margin: 0; display: grid; gap: 8px; position: relative; }
+.flight-timeline li { display: grid; grid-template-columns: 96px 1fr; align-items: start; gap: 10px; padding: 8px 10px; border: 1px dashed #e7f4ff; border-radius: 12px; background: #fff; }
+.time-col { display: flex; flex-direction: column; align-items: stretch; gap: 4px; }
+.badge { background: #eaf6ff; color: #1266a4; border: 1px solid #cfeaff; border-radius: 10px; padding: 4px 8px; font-weight: 700; font-size: 12px; text-align: center; }
+.under-time-price { display: inline-block; align-self: center; padding: 2px 6px; border-radius: 8px; background: #fff; border: 1px solid #ffe0f1; color: #b33b7f; font-weight: 700; font-size: 11px; line-height: 1; }
+.flight-main { line-height: 1.5; }
+.flight-main .muted { color: var(--muted); font-weight: 400; }
+/* subpoints: each on its own line */
+.flight-main > ul { display: block; padding: 0; margin: 6px 0 0 0; }
+.flight-main > ul li { display: block; list-style: none; margin: 4px 0; white-space: normal; }
+
+.footer { text-align: center; color: var(--muted); margin: 24px 0 8px; }
+
+/* RWD */
+@media (max-width: 900px) {
+  .transport { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .content { padding: 16px 12px 28px; }
+  .page-grid { grid-template-columns: 1fr; }
+  .inner-sidebar { position: static; flex-direction: row; flex-wrap: wrap; }
+  .flight-timeline li { grid-template-columns: 80px 1fr; }
+  /* hide vertical divider on mobile single column */
+  .page-grid::before { display: none; }
+}
+
+
+/* Itinerary: small title label rows instead of list */
+.mini-rows { display: grid; gap: 8px; margin: 8px 0; }
+.mini-row { display: inline-flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.mini-label { background: #fff; border: 1px solid #ffd6eb; color: #c84d8d; border-radius: 999px; padding: 4px 8px; font-weight: 700; font-size: 12px; }
+.mini-value { color: var(--text); }
+
+
+/* Price pill for itinerary/transport prices */
+.price-pill {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #ffe0f1;
+  color: #b33b7f;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1;
+  margin-left: 6px;
 }
